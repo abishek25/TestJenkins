@@ -1,0 +1,98 @@
+package project;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+public class fujitsu {
+public static void main(String args[]) throws IOException
+{
+	{
+	Scanner sc=new Scanner(System.in);	
+	String data = ""; 
+    data = new String(Files.readAllBytes(Paths.get("employees.dat"))); 
+    String temp="";
+    String temp1="";
+    String[] Details = data.split("\n");
+    List<String> EmployeeDetails = new LinkedList<>();
+    List<String>last=new ArrayList<>();
+    List<String>lastsorted=new ArrayList<>();
+    List<String>lastname=new ArrayList<>();
+   for(int i=0;i<Details.length;i++)
+   {
+	if(Details[i].contains("#"))
+	{
+		continue;
+	}
+	else
+	{
+		EmployeeDetails.add(Details[i]);	
+	}
+   }
+  Collections.sort(EmployeeDetails);
+  
+  for(int i=0;i<EmployeeDetails.size();i++)
+  {
+	  String str=EmployeeDetails.get(i);
+	  
+		for(int j=str.length()-1;j>=1;j--)
+		{
+			if(str.charAt(j)==' ')
+			{
+				break;
+			}
+			else {
+			
+			temp+=String.valueOf(str.charAt(j));
+			}
+			}
+		for(int l=temp.length()-1;l>=0;l--)
+		{
+			temp1+=String.valueOf(temp.charAt(l));
+		}
+		temp1=temp1.replaceAll("\\s+", "");
+		
+		last.add(temp1);
+	
+		temp="";
+		temp1="";	
+		}
+  for(int i=0;i<last.size();i++)
+	  lastsorted.add(last.get(i));
+	
+  Collections.sort(lastsorted);
+ 
+ 
+  for(int j=0;j<lastsorted.size();j++)
+  {
+	for(int k=0;k<EmployeeDetails.size();k++)
+	{
+		String name=EmployeeDetails.get(k);
+		String lsname=lastsorted.get(j);
+		if(EmployeeDetails.get(k).contains(lastsorted.get(j)))
+		{
+			lastname.add(EmployeeDetails.get(k));
+		}
+		
+	}
+  
+  }
+ 
+System.out.println("processing by employee Number..");	
+
+for(String s: EmployeeDetails)
+	System.out.print(s);
+  
+System.out.println();
+
+	System.out.println("processing by last(family) name");
+	for(String s: lastname)
+	  System.out.print(s);
+	
+}
+}
+}
